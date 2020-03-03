@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>DIMENSIONNEMENT D'UN TRANSFORMATEUR</title>
+
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+  </head>
+
+  <body id="page-top">
+    <div id="wrapper">
+      <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+          <nav
+            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+          ></nav>
+
+          <div class="container-fluid" id="app">
+            <h1 class="h3 mb-4 text-gray-800">
+              DIMENSIONNEMENT D'UN TRANSFORMATEUR
+            </h1>
+            <div class="row">
+              <div class="col-lg-6 mb-4">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      Transformateur Monophasé
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="text-center">
+                      <img
+                        class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+                        style="width: 25rem;"
+                        src="img/monophase.jpg"
+                        alt=""
+                      />
+                    </div>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 mb-4">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      Transformateur triphasé
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="text-center">
+                      <img
+                        class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+                        style="width: 25rem;"
+                        src="img/triphase.jpg"
+                        alt=""
+                      />
+                    </div>
+                    <p></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      Définition
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="text-center"></div>
+                    <p>
+                      Le transformateur est un appareil statique à induction
+                      électromagnétique destiné à transformer un système de
+                      courants variables en un ou plusieurs systèmes de courants
+                      variables, d'intensité et de tension généralement
+                      différentes, mais de même fréquence. Le transformateur
+                      permet de transférer de l'énergie sous forme altérnative
+                      d'une source à une charge, tout en modifiant la valeur de
+                      la tension qui peut être augmentée ou abaissée, selon
+                      l'utilisation. Le changement d'un niveau de tension à un
+                      autre se fait par l'effet d'un champ magnétique. Le
+                      transformateur est constitué par 2 parties intégrantes:
+                      <br />
+                      -Le circuit magnétique <br />
+                      -Les enroulements primaire et secondaire <br />
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h2>
+              Grandeurs d'entrées
+            </h2>
+            <div class="row">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Nombre de phases : m
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          <select class="form-control" v-model="nombre_phases">
+                            <option value="1">Monophase</option>
+                            <option value="3">Triphase</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success mb-1">
+                          Puissance apparente : S <sub>n</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          <div class="input-group">
+                            <select
+                              v-model="puisance_apparente"
+                              class="form-control"
+                            >
+                              <option>25</option>
+                              <option>50</option>
+                              <option>100</option>
+                              <option>200</option>
+                              <option>300</option>
+                              <option>400</option>
+                              <option>500</option>
+                              <option>750</option>
+                              <option>1000</option>
+                            </select>
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon1"
+                                >[VA]</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Tension Primaire : U <sub>1</sub>
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div
+                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                            >
+                              <div class="input-group">
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  v-model="u1"
+                                />
+                                <div class="input-group-append">
+                                  <span
+                                    class="input-group-text"
+                                    id="basic-addon1"
+                                    >[V]</span
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pending Requests Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning mb-1">
+                          Tension secondaire : U <sub>2</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          <div class="input-group">
+                            <input
+                              type="number"
+                              class="form-control"
+                              v-model="u2"
+                            />
+                            <div class="input-group-append">
+                              <span class="input-group-text" id="basic-addon1"
+                                >[V]</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Fréquence : f
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ this.f }} Hz
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Induction Magnetique : B
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ this.B }} T
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" v-if="nombre_phases == 3">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Couplage primaire
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          <select
+                            class="form-control"
+                            v-model="couplage_primaire"
+                          >
+                            <option value="triangle">Triangle △</option>
+                            <option value="etoile">Etoile Y</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Couplage secondaire
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          <select
+                            class="form-control"
+                            v-model="couplage_secondaire"
+                          >
+                            <option value="triangle">Triangle △</option>
+                            <option value="etoile">Etoile Y</option>
+                            <option value="zigzag">Zig-Zag Z</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h2>Enroulement</h2>
+            <div class="row">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Courant nominal primaire I <sub>1</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (i1).toFixed(4) }} [A]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success mb-1">
+                          Courant nominal secondaire I <sub>2</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (i2).toFixed(4) }} [A]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Section de l'enroulement primaire : S <sub>1</sub>
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div
+                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                            >
+                              {{ (s1).toFixed(4) }} [mm²]
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pending Requests Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning mb-1">
+                          Section de l'enroulement secondaire : S <sub>2</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (s2).toFixed(4) }} [mm²]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Diamètre de l'enroulement primaire d <sub>1</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (d1).toFixed(4) }} [mm]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success mb-1">
+                          Diamètre de l'enroulement primaire d <sub>2</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (d2).toFixed(4) }} [mm]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6 mb-4" v-if="nombre_phases == 1">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Nombre de spires au primaire N1
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (n1).toFixed(4) }} [spires]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6 mb-4" v-if="nombre_phases == 3">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Nombre de spires en Basse Tension : N <sub>BT</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (nBT).toFixed(4) }} [spires]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6 mb-4" v-if="nombre_phases == 1">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning mb-1">
+                          Nombre de spires au secondaire N2
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (n2).toFixed(4) }} [spires]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6 mb-4" v-if="nombre_phases == 3">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning mb-1">
+                          Nombre de spires en Haute Tension : N <sub>HT</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (nHT).toFixed(4) }} [spires]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Courant de phase primaire I<sub>P1</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (ip1).toFixed(4) }} [A]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success mb-1">
+                          Courant de phase secondaire I<sub>P2</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (ip2).toFixed(4) }} [A]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Tension de phase primaire U<sub>P1</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (up1).toFixed(4) }} [V]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning mb-1">
+                          Tension de phase primaire U<sub>P2</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (up2).toFixed(4) }} [V]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" v-if="nombre_phases == 3">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Tension de spire Us
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (usbt).toFixed(4) }} [V]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div
+                          class="text-xs font-weight-bold text-suborder-left-success mb-1"
+                        >
+                          Largeur réduite : L<sub>p</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (Lpmoy).toFixed(4) }} [cm]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Tension de court circuit : U<sub>CCR</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (uccr).toFixed(4) }} [V]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning mb-1">
+                          Hauteur des enroulements H
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (H).toFixed(4) }} [cm]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h2 v-if="nombre_phases == 1">
+              Circuit Magnétique
+            </h2>
+            <h2 v-if="nombre_phases == 3">
+              Noyau Magnétique
+            </h2>
+            <div class="row" v-if="nombre_phases == 3">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Section du noyau magnétique
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (s).toFixed(4) }} [cm²]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success mb-1">
+                          Puissance d'une tige : S <sub>T</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (st).toFixed(4) }} [VA]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Diamètre du cercle circonscrit : D
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div
+                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                            >
+                              {{ (D).toFixed(4) }} [cm]
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pending Requests Card Example -->
+            </div>
+            <div class="row" v-if="nombre_phases == 3">
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <img
+                          src="img/88261711_894527114317036_1209248188217688064_n.jpg"
+                          alt=""
+                          class="img-fluid"
+                          style="height: 300px;"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success mb-1">
+                          Largeur du culasse : Lc
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (Lc).toFixed(4) }} [cm]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Largeur de la fenêtre: Lf
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (Lf).toFixed(4) }} [cm]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" v-if="nombre_phases == 1">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Section apparente Sa
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (sa).toFixed(4) }} [cm²]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success mb-1">
+                          Section réelle Sr
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (sr).toFixed(4) }} [cm²]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Section de l'enroulement primaire : S <sub>1</sub>
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div
+                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                            >
+                              {{ (s1).toFixed(4) }} [mm²]
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pending Requests Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning mb-1">
+                          Section de l'enroulement secondaire : S <sub>2</sub>
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (s2).toFixed(4) }} [mm²]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" v-if="nombre_phases == 1">
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary mb-1">
+                          Largeur de la colonne centrale : l
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (l).toFixed(4) }} [cm]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success mb-1">
+                          Longueur du circuit magnétique : L
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                          {{ (L).toFixed(4) }} [cm]
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info mb-1">
+                          Epaisseur du circuit magnétique : a
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div
+                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                            >
+                              {{ (a).toFixed(4) }} [cm]
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/vue.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
